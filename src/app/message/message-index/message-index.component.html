@@ -1,0 +1,9 @@
+<div class="container">
+  <h1 class="title">Message Table</h1>
+</div>
+<div class="container is-fluid" *ngIf="!messageList">
+  <app-page-load></app-page-load>
+</div>
+<div class="container is-fluid" *ngIf="messageList">
+  <app-message-table [messages]="messageList.data"></app-message-table>
+</div>

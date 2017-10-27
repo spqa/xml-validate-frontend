@@ -1,0 +1,20 @@
+<table class="table is-bordered is-hoverable">
+  <thead>
+  <tr>
+    <th>No</th>
+    <th>Message Key</th>
+    <th>JA</th>
+    <th>EN</th>
+    <th>Final</th>
+    <th>Code File</th>
+    <th>Resource File</th>
+    <th>VI</th>
+    <th>Updated By</th>
+    <th>Updated At</th>
+    <th>Created At</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr message-row *ngFor="let message of messages; let i = index" [message]="message" [no]="i"></tr>
+  </tbody>
+</table>
