@@ -1,12 +1,12 @@
-<td class="is-light">{{no}}</td>
-<td contenteditable (keyup)="setMessageKey($event)">{{message.message_key}}</td>
-<td contenteditable>{{message.ja}}</td>
-<td contenteditable>{{message.en}}</td>
-<td contenteditable>{{message.final}}</td>
+<td class="is-light">{{no+1}}</td>
+<td contenteditable (keyup)="msKeyStream.next($event)">{{message.message_key}}</td>
+<td contenteditable (keyup)="jaStream.next($event)">{{message.ja}}</td>
+<td contenteditable (keyup)="enStream.next($event)">{{message.en}}</td>
+<td contenteditable (keyup)="finalStream.next($event)">{{message.final}}</td>
 <td class="is-light">{{message.code_file ? message.code_file.name : ""}}</td>
 <td class="is-light">{{message.resource_file ? message.resource_file.name : ""}}</td>
-<td contenteditable>{{message.vi}}</td>
-<td class="is-light">{{message.updated_by}}</td>
+<td contenteditable (keyup)="viStream.next($event)">{{message.vi}}</td>
+<td class="is-light" >{{message.updated_by}}</td>
 <td class="is-light">{{message.updated_at | date:'shortDate'}}</td>
 <td class="is-light">{{message.created_at | date:'shortDate'}}</td>
 

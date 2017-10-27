@@ -20,4 +20,20 @@ export class MessageIndexComponent implements OnInit {
   ngOnInit() {
   }
 
+  nextPage() {
+    if (this.messageList.current_page !== this.messageList.last_page) {
+      this.messageService.getMessages(this.messageList.current_page + 1).subscribe((messages) => {
+        this.messageList = messages;
+      });
+    }
+  }
+
+  prevPage() {
+    if (this.messageList.current_page !== 1) {
+      this.messageService.getMessages(this.messageList.current_page - 1).subscribe((messages) => {
+        this.messageList = messages;
+      });
+    }
+  }
+
 }

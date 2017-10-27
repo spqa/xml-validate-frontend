@@ -7,3 +7,23 @@
 <div class="container is-fluid" *ngIf="messageList">
   <app-message-table [messages]="messageList.data"></app-message-table>
 </div>
+
+<div class="container" *ngIf="messageList">
+  <div class="field is-grouped">
+    <p class="control">
+      <a class="button is-link" (click)="prevPage()" [attr.disabled] = "messageList.current_page == 1?'':null">
+        Prev
+      </a>
+    </p>
+    <p class="control">
+      <a class="button">
+        {{messageList.current_page}}
+      </a>
+    </p>
+    <p class="control">
+      <a class="button is-link" (click)="nextPage()" [attr.disabled] = "messageList.current_page == messageList.last_page?'':null">
+        Next
+      </a>
+    </p>
+  </div>
+</div>
