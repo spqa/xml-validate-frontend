@@ -1,0 +1,19 @@
+<form (ngSubmit)="onSubmit()">
+  <label class="label">Add new code file</label>
+  <div *ngIf="infoMessage" class="notification {{isError?'is-danger':'is-success'}}">{{infoMessage}}</div>
+
+  <div class="field is-grouped">
+    <p class="control">
+      <input name="name" [(ngModel)]="codeFile.name" class="input" type="text"
+             placeholder="enter code file name" required>
+    </p>
+    <p class="control">
+      <input name="package" [(ngModel)]="codeFile.package" class="input" type="text" placeholder="enter package">
+    </p>
+
+    <p class="control">
+      <button class="button is-info" type="submit">Submit</button>
+    </p>
+  </div>
+
+</form>

@@ -9,6 +9,7 @@ import {SharedModule} from "../shared/shared.module";
 import {CodefileModule} from "../codefile/codefile.module";
 import {FormsModule} from "@angular/forms";
 import {MessageAddComponent} from './message-add/message-add.component';
+import {ResourceFileModule} from "../resource-file/resource-file.module";
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
     CommonModule,
     SharedModule,
     CodefileModule,
+    ResourceFileModule,
     FormsModule,
     RouterModule.forChild(routes)
   ],

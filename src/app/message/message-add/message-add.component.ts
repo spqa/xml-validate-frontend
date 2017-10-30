@@ -25,17 +25,21 @@ export class MessageAddComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isError = false;
+    this.infoMessage = "";
     this.messageService.addMessage(this.message).subscribe((result: ResultMessage) => {
       if (result.error === true) {
+        this.isError = true;
         if (typeof result.message === "string") {
           this.infoMessage = result.message;
         } else {
           for (const member in result.message) {
-            this.isError = true;
             console.log(member);
             this.infoMessage = result.message[member][0];
           }
         }
+      } else {
+        this.infoMessage = result.message;
       }
     });
   }

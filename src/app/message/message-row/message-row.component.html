@@ -10,4 +10,7 @@
 <td class="is-light" >{{message.updated_by}}</td>
 <td class="is-light">{{message.updated_at | date:'shortDate'}}</td>
 <td class="is-light">{{message.created_at | date:'shortDate'}}</td>
+<td>
+  <button (click)="deleteMessage()" class="button is-warning">Delete</button>
+</td>
 

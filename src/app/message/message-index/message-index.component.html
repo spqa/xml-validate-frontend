@@ -8,14 +8,23 @@
 
 
   <div class="container">
-    <button class="button">Add Message</button>
-    <app-message-add [codeFileList]="codeFileList" [resourceFileList]="resourceFileList"></app-message-add>
+    <button (click)="toggleAddMessage()" class="button">Add Message</button>
+    <button (click)="toggleAddResourceFile()" class="button">Add Resource File</button>
+    <button (click)="toggleAddCodeFile()" class="button">Add Code File</button>
+    <app-message-add *ngIf="isAddingMessage" [codeFileList]="codeFileList"
+                     [resourceFileList]="resourceFileList"></app-message-add>
+    <app-code-file-add *ngIf="isAddingCodeFile"></app-code-file-add>
+    <app-resource-file-add *ngIf="isAddingResourceFile"></app-resource-file-add>
   </div>
   <hr>
   <div class="container is-fluid">
     <div class="columns">
       <div class="column">
         <div class="field is-grouped">
+          <div class="control"><label class="label">Search</label></div>
+          <div class="control">
+            <input placeholder="search" class="input" type="text" #search (input)="queryStream.next(search.value)">
+          </div>
           <div class="control"><label class="label">Filter</label></div>
           <div class="control">
             <div class="select" [class.is-loading]="!codeFileList">

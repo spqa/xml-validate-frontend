@@ -4,6 +4,7 @@ import {Observable} from "rxjs/Observable";
 import {MessageList} from "../shared/models/message-list";
 import 'rxjs/add/operator/retry';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import {Message} from "../shared/models/message";
 import {ResultMessage} from "../shared/models/result-message";
 import {Subject} from "rxjs/Subject";
@@ -17,7 +18,7 @@ export class MessageService {
   static EP = Config.EP;
   static QUERY_STATE = "message-query-state";
   private messageState: MessageQueryState = new MessageQueryState();
-  public messagesStream: Subject<MessageList> = new Subject();
+  public messagesStream: Subject<MessageList> = new BehaviorSubject(null);
   public queryStateStream: Subject<MessageQueryState> = new BehaviorSubject(null);
   constructor(private http: HttpClient) {
     this.queryStateStream.subscribe((state: MessageQueryState) => {
@@ -46,7 +47,7 @@ export class MessageService {
       });
     });
     // update current page state each time messageStream emit
-    this.messagesStream.map(messages => messages.current_page).subscribe((current_page) => {
+    this.messagesStream.filter((messages) => messages !== null).map(messages => messages.current_page).subscribe((current_page) => {
       this.messageState.page = current_page;
     });
   }
@@ -73,22 +74,6 @@ export class MessageService {
     return this.messageState;
   }
 
-  // setApplied(applied: number){
-  //   this.messageState.applied = applied;
-  // }
-  //
-  // setCodeFile(applied: number){
-  //   this.messageState.applied = applied;
-  // }
-  //
-  // setResourceFile(applied: number){
-  //   this.messageState.applied = applied;
-  // }
-  //
-  // setPage(applied: number){
-  //   this.messageState.applied = applied;
-  // }
-
   public updateMessage(message: Message): Observable<ResultMessage> {
     const url = MessageService.EP + "/message/" + message.id;
     return this.http.patch(url, message);
@@ -97,5 +82,15 @@ export class MessageService {
   public addMessage(message: Message): Observable<ResultMessage> {
     const url = MessageService.EP + "/message";
     return this.http.post(url, message);
+  }
+
+  public searchMessage(query: string): Observable<MessageList> {
+    const url = MessageService.EP + "/search/message?query=" + query;
+    return this.http.get(url);
+  }
+
+  public deleteMessage(id: number): Observable<ResultMessage> {
+    const url = MessageService.EP + "/message/" + id;
+    return this.http.delete(url);
   }
 }

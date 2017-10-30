@@ -20,7 +20,6 @@ export class MessageRowComponent implements OnInit {
   EN_KEY = 3;
   FINAL_KEY = 4;
   VI_KEY = 7;
-  // eventStream: Subject<Event> = new Subject();
   msKeyStream: Subject<Event> = new Subject();
   jaStream: Subject<Event> = new Subject();
   enStream: Subject<Event> = new Subject();
@@ -116,19 +115,9 @@ export class MessageRowComponent implements OnInit {
     });
   }
 
-  // updateRow(message): void {
-  //   this.messageService.updateMessage(message).subscribe(result => {
-  //     console.log(result.message);
-  //   });
-  // }
-
-  // processJaStream(): void {
-  //  this.jaStream.debounceTime(300)
-  //    .map(($event) => ($event.target as any).textContent).distinctUntilChanged().subscribe((str) => {
-  //    const update = Object.assign({}, this.message);
-  //    update.message_key = str;
-  //    this.updateRow(update);
-  //  });
-  // }
-
+  deleteMessage() {
+    this.messageService.deleteMessage(this.message.id).subscribe(result => {
+      this.messageService.getMessages();
+    });
+  }
 }

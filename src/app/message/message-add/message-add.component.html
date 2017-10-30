@@ -1,18 +1,22 @@
 <form (ngSubmit)="onSubmit()">
-  <label class="label">Add new message</label>
+  <!--<label class="label">Add new message</label>-->
   <div *ngIf="infoMessage" class="notification {{isError?'is-danger':'is-success'}}">{{infoMessage}}</div>
   <div class="field is-grouped">
     <p class="control">
+      <label class="label">Message Key</label>
       <input name="message_key" [(ngModel)]="message.message_key" class="input" type="text"
              placeholder="enter message key" required>
     </p>
     <p class="control">
+      <label class="label">Japanese Message</label>
       <input name="ja" [(ngModel)]="message.ja" class="input" type="text" placeholder="enter ja">
     </p>
     <p class="control">
+      <label class="label">English Message</label>
       <input name="en" [(ngModel)]="message.en" class="input" type="text" placeholder="enter en">
     </p>
     <p class="control">
+      <label class="label">Final</label>
       <input name="final" [(ngModel)]="message.final" class="input" type="text" placeholder="enter final">
     </p>
 
@@ -20,6 +24,7 @@
 
   <div class="field is-grouped">
     <div class="control">
+      <label class="label">Code File</label>
       <div class="select" [class.is-loading]="!codeFileList">
         <select *ngIf="!codeFileList">
           <option>None</option>
@@ -32,21 +37,23 @@
     </div>
 
     <div class="control">
+      <label class="label">Resource File</label>
       <div class="select" [class.is-loading]="!resourceFileList">
         <select *ngIf="!resourceFileList">
-          <option>None</option>
+          <option>Select resource File</option>
         </select>
         <select *ngIf="resourceFileList" name="resource_file_id" [(ngModel)]="message.resource_file_id">
-          <option value="">None</option>
+          <option value="" selected>None</option>
           <option *ngFor="let file of resourceFileList" [value]="file.id">{{file.name}}</option>
         </select>
       </div>
     </div>
     <p class="control">
+      <label class="label">Vietnam message</label>
       <input class="input" name="vi" type="text" placeholder="enter vi" [(ngModel)]="message.vi">
     </p>
     <div class="control">
-      <label class="label label-apply">Applied</label>
+      <label class="label">Applied</label>
       <label class="radio">
         <input type="radio" name="applied" value="1" [(ngModel)]="message.applied">
         Yes

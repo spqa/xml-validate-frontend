@@ -1,8 +1,12 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="https://bulma.io">
+    <a class="navbar-item" routerLink="/">
       XML Validate Tool
     </a>
+  </div>
+  <div class="navbar-start">
+    <a routerLink="/codefile" class="navbar-item">Code File</a>
+    <a routerLink="/resource-file" class="navbar-item">Resource File</a>
   </div>
 </nav>
 <router-outlet></router-outlet>
