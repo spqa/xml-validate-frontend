@@ -1,6 +1,7 @@
 export class MessageQueryState {
-  public applied;
-  public resource_file_id;
-  public code_file_id;
-  public per_page;
+  public applied: number;
+  public resource_file_id: number;
+  public code_file_id: number;
+  public per_page: number;
+  public page: number;
 }

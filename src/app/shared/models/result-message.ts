@@ -1,4 +1,4 @@
 export class ResultMessage {
   public error: boolean;
-  public message: string;
+  public message: string | any;
 }

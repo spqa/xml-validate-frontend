@@ -1,17 +1,77 @@
-<div class="container">
-  <h1 class="title">Message Table</h1>
-</div>
-<div class="container is-fluid" *ngIf="!messageList">
-  <app-page-load></app-page-load>
-</div>
-<div class="container is-fluid" *ngIf="messageList">
-  <app-message-table [messages]="messageList.data"></app-message-table>
+<div class="section">
+  <div class="container">
+    <h1 class="title">Message Table</h1>
+  </div>
+  <div class="container is-fluid" *ngIf="!messageList">
+    <app-page-load></app-page-load>
+  </div>
+
+
+  <div class="container">
+    <button class="button">Add Message</button>
+    <app-message-add [codeFileList]="codeFileList" [resourceFileList]="resourceFileList"></app-message-add>
+  </div>
+  <hr>
+  <div class="container is-fluid">
+    <div class="columns">
+      <div class="column">
+        <div class="field is-grouped">
+          <div class="control"><label class="label">Filter</label></div>
+          <div class="control">
+            <div class="select" [class.is-loading]="!codeFileList">
+              <select *ngIf="!codeFileList">
+                <option>None</option>
+              </select>
+              <select *ngIf="codeFileList" name="code_file_id" [(ngModel)]="queryState.code_file_id">
+                <option value="">None</option>
+                <option *ngFor="let codefile of codeFileList" [value]="codefile.id">{{codefile.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control">
+            <div class="select" [class.is-loading]="!resourceFileList">
+              <select *ngIf="!resourceFileList">
+                <option>None</option>
+              </select>
+              <select *ngIf="resourceFileList" name="resource_file_id" [(ngModel)]="queryState.resource_file_id">
+                <option value="">None</option>
+                <option *ngFor="let file of resourceFileList" [value]="file.id">{{file.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="control">
+            <label class="label label-apply">Applied</label>
+            <label class="radio">
+              <input type="radio" name="applied" value="1" [(ngModel)]="queryState.applied">
+              Yes
+            </label>
+            <label class="radio">
+              <input type="radio" name="applied" value="0" [(ngModel)]="queryState.applied">
+              No
+            </label>
+            <label class="radio">
+              <input type="radio" name="applied" [(ngModel)]="queryState.applied">
+              None
+            </label>
+          </div>
+
+          <div class="control">
+            <button [class.is-loading]="isLoading" (click)="handleFilter()" class="button is-info">Apply</button>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+    <app-message-table *ngIf="messageList" [messages]="messageList.data"></app-message-table>
 </div>
 
 <div class="container" *ngIf="messageList">
   <div class="field is-grouped">
     <p class="control">
-      <a class="button is-link" (click)="prevPage()" [attr.disabled] = "messageList.current_page == 1?'':null">
+      <a class="button is-link" (click)="prevPage()" [attr.disabled]="messageList.current_page == 1?'':null">
         Prev
       </a>
     </p>
@@ -21,9 +81,11 @@
       </a>
     </p>
     <p class="control">
-      <a class="button is-link" (click)="nextPage()" [attr.disabled] = "messageList.current_page == messageList.last_page?'':null">
+      <a class="button is-link" (click)="nextPage()"
+         [attr.disabled]="messageList.current_page == messageList.last_page?'':null">
         Next
       </a>
     </p>
   </div>
+</div>
 </div>

@@ -1,7 +1,6 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Message} from "../../shared/models/message";
 import {MessageService} from "../message.service";
-import {Observable} from "rxjs/Observable";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/debounceTime';
@@ -16,72 +15,120 @@ export class MessageRowComponent implements OnInit {
 
   @Input() message: Message;
   @Input() no: number;
+  MSKEY_INDEX = 1;
+  JA_KEY = 2;
+  EN_KEY = 3;
+  FINAL_KEY = 4;
+  VI_KEY = 7;
+  // eventStream: Subject<Event> = new Subject();
+  msKeyStream: Subject<Event> = new Subject();
   jaStream: Subject<Event> = new Subject();
   enStream: Subject<Event> = new Subject();
-  msKeyStream: Subject<Event> = new Subject();
   finalStream: Subject<Event> = new Subject();
   viStream: Subject<Event> = new Subject();
 
-  constructor(private messageService: MessageService,
-              private elementRef: ElementRef) {
+  constructor(private messageService: MessageService) {
   }
 
   ngOnInit() {
-    this.processJaStream();
-    this.processEnStream();
-    this.procesMsKeyStream();
-    this.processFinalStream();
-    this.processViStream();
-  }
-
-  updateRow(message): void {
-    this.messageService.updateMessage(message).subscribe(result => {
-      console.log(result.message);
+    this.msKeyStream.debounceTime(300).subscribe((event) => {
+      this.handleChange(event);
+    });
+    this.jaStream.debounceTime(300).subscribe((event) => {
+      this.handleChange(event);
+    });
+    this.enStream.debounceTime(300).subscribe((event) => {
+      this.handleChange(event);
+    });
+    this.finalStream.debounceTime(300).subscribe((event) => {
+      this.handleChange(event);
+    });
+    this.viStream.debounceTime(300).subscribe((event) => {
+      this.handleChange(event);
     });
   }
 
-  processJaStream(): void {
-   this.jaStream.debounceTime(300)
-     .map(($event) => $event.target.textContent).distinctUntilChanged().subscribe((str) => {
-     const update = Object.assign({}, this.message);
-     update.message_key = str;
-     this.updateRow(update);
-   });
+  handleChange(event: Event): void {
+    const td: any = event.target;
+    const content = td.textContent;
+    console.log(content);
+    let isChange = false;
+    const upMess = new Message();
+    console.log(td.cellIndex);
+    switch (td.cellIndex) {
+      case this.MSKEY_INDEX:
+        if (content !== this.message.message_key) {
+          upMess.id = this.message.id;
+          upMess.message_key = content;
+          isChange = true;
+        }
+        break;
+      case this.EN_KEY:
+        if (content !== this.message.en) {
+          upMess.id = this.message.id;
+          upMess.en = content;
+          isChange = true;
+        }
+        break;
+      case this.JA_KEY:
+        if (content !== this.message.ja) {
+          upMess.id = this.message.id;
+          upMess.ja = content;
+          isChange = true;
+        }
+        break;
+      case this.FINAL_KEY:
+        if (content !== this.message.final) {
+          upMess.id = this.message.id;
+          upMess.final = content;
+          isChange = true;
+        }
+        break;
+      case this.VI_KEY:
+        if (content !== this.message.vi) {
+          upMess.id = this.message.id;
+          upMess.vi = content;
+          isChange = true;
+        }
+        break;
+    }
+    if (isChange) {
+      td.style.backgroundColor = "#ef9a9a";
+      this.messageService.updateMessage(upMess).subscribe(result => {
+        console.log(upMess);
+        if (result.error === false) {
+          td.style.backgroundColor = null;
+        }
+      });
+    }
   }
 
-  processEnStream(): void {
-    this.enStream.debounceTime(300)
-      .map(($event) => $event.target.textContent).distinctUntilChanged().subscribe((str) => {
-      const update = Object.assign({}, this.message);
-      update.en = str;
-      this.updateRow(update);
+  updateApplied($event) {
+    console.log("update applied flag!");
+    $event.target.parentElement.style.backgroundColor = "#ef9a9a";
+    const message = new Message();
+    message.id = this.message.id;
+    message.applied = !this.message.applied;
+    this.messageService.updateMessage(message).subscribe((result) => {
+      if (result.error === false) {
+        $event.target.parentElement.style.backgroundColor = null;
+      }
     });
   }
 
-  processFinalStream(): void {
-    this.finalStream.debounceTime(300)
-      .map(($event) => $event.target.textContent).distinctUntilChanged().subscribe((str) => {
-      const update = Object.assign({}, this.message);
-      update.final = str;
-      this.updateRow(update);
-    });
-  }
+  // updateRow(message): void {
+  //   this.messageService.updateMessage(message).subscribe(result => {
+  //     console.log(result.message);
+  //   });
+  // }
 
-  procesMsKeyStream(): void {
-    this.msKeyStream.debounceTime(300)
-      .map(($event) => $event.target.textContent).distinctUntilChanged().subscribe((str) => {
-      const update = Object.assign({}, this.message);
-      update.message_key = str;
-      this.updateRow(update);
-    });
-  }
+  // processJaStream(): void {
+  //  this.jaStream.debounceTime(300)
+  //    .map(($event) => ($event.target as any).textContent).distinctUntilChanged().subscribe((str) => {
+  //    const update = Object.assign({}, this.message);
+  //    update.message_key = str;
+  //    this.updateRow(update);
+  //  });
+  // }
 
-  processViStream(): void {
-    this.viStream.debounceTime(300)
-      .map(($event) => $event.target.textContent).distinctUntilChanged().subscribe((str) => {
-      const update = Object.assign({}, this.message);
-      update.vi = str;
-      this.updateRow(update);
-    });
-  }
 }

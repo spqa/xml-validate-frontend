@@ -1,0 +1,63 @@
+<form (ngSubmit)="onSubmit()">
+  <label class="label">Add new message</label>
+  <div *ngIf="infoMessage" class="notification {{isError?'is-danger':'is-success'}}">{{infoMessage}}</div>
+  <div class="field is-grouped">
+    <p class="control">
+      <input name="message_key" [(ngModel)]="message.message_key" class="input" type="text"
+             placeholder="enter message key" required>
+    </p>
+    <p class="control">
+      <input name="ja" [(ngModel)]="message.ja" class="input" type="text" placeholder="enter ja">
+    </p>
+    <p class="control">
+      <input name="en" [(ngModel)]="message.en" class="input" type="text" placeholder="enter en">
+    </p>
+    <p class="control">
+      <input name="final" [(ngModel)]="message.final" class="input" type="text" placeholder="enter final">
+    </p>
+
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <div class="select" [class.is-loading]="!codeFileList">
+        <select *ngIf="!codeFileList">
+          <option>None</option>
+        </select>
+        <select name="code_file_id" *ngIf="codeFileList" [(ngModel)]="message.code_file_id">
+          <option value="">None</option>
+          <option *ngFor="let codefile of codeFileList" [value]="codefile.id">{{codefile.name}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="control">
+      <div class="select" [class.is-loading]="!resourceFileList">
+        <select *ngIf="!resourceFileList">
+          <option>None</option>
+        </select>
+        <select *ngIf="resourceFileList" name="resource_file_id" [(ngModel)]="message.resource_file_id">
+          <option value="">None</option>
+          <option *ngFor="let file of resourceFileList" [value]="file.id">{{file.name}}</option>
+        </select>
+      </div>
+    </div>
+    <p class="control">
+      <input class="input" name="vi" type="text" placeholder="enter vi" [(ngModel)]="message.vi">
+    </p>
+    <div class="control">
+      <label class="label label-apply">Applied</label>
+      <label class="radio">
+        <input type="radio" name="applied" value="1" [(ngModel)]="message.applied">
+        Yes
+      </label>
+      <label class="radio">
+        <input type="radio" name="applied" value="0" checked [(ngModel)]="message.applied">
+        No
+      </label>
+    </div>
+  </div>
+  <div class="field">
+    <button type="submit" class="button is-info">Submit</button>
+  </div>
+</form>

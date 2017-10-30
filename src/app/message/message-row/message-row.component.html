@@ -1,11 +1,12 @@
 <td class="is-light">{{no+1}}</td>
-<td contenteditable (keyup)="msKeyStream.next($event)">{{message.message_key}}</td>
-<td contenteditable (keyup)="jaStream.next($event)">{{message.ja}}</td>
-<td contenteditable (keyup)="enStream.next($event)">{{message.en}}</td>
-<td contenteditable (keyup)="finalStream.next($event)">{{message.final}}</td>
+<td contenteditable (input)="msKeyStream.next($event)">{{message.message_key}}</td>
+<td contenteditable (input)="jaStream.next($event)">{{message.ja}}</td>
+<td contenteditable (input)="enStream.next($event)">{{message.en}}</td>
+<td contenteditable (input)="finalStream.next($event)">{{message.final}}</td>
 <td class="is-light">{{message.code_file ? message.code_file.name : ""}}</td>
 <td class="is-light">{{message.resource_file ? message.resource_file.name : ""}}</td>
-<td contenteditable (keyup)="viStream.next($event)">{{message.vi}}</td>
+<td contenteditable (input)="viStream.next($event)">{{message.vi}}</td>
+<td><input (change)="updateApplied($event)" type="checkbox" [checked]="message.applied"/></td>
 <td class="is-light" >{{message.updated_by}}</td>
 <td class="is-light">{{message.updated_at | date:'shortDate'}}</td>
 <td class="is-light">{{message.created_at | date:'shortDate'}}</td>

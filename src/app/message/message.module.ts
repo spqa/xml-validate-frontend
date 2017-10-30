@@ -5,8 +5,10 @@ import {RouterModule, Routes} from "@angular/router";
 import {MessageTableComponent} from './message-table/message-table.component';
 import {MessageRowComponent} from './message-row/message-row.component';
 import {MessageService} from "./message.service";
-import {HttpClientModule} from "@angular/common/http";
 import {SharedModule} from "../shared/shared.module";
+import {CodefileModule} from "../codefile/codefile.module";
+import {FormsModule} from "@angular/forms";
+import {MessageAddComponent} from './message-add/message-add.component';
 
 const routes: Routes = [
   {
@@ -19,11 +21,12 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule,
-    HttpClientModule,
     SharedModule,
+    CodefileModule,
+    FormsModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [MessageIndexComponent, MessageTableComponent, MessageRowComponent],
+  declarations: [MessageIndexComponent, MessageTableComponent, MessageRowComponent, MessageAddComponent],
   exports: [
     MessageIndexComponent,
     RouterModule
