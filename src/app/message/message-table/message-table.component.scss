@@ -1,3 +1,16 @@
 thead{
   background: aliceblue;
 }
+
+table {
+  display: block;
+  overflow-x: auto;
+}
+
+.min-width-150 {
+  min-width: 150px;
+}
+
+.not-applied {
+  background-color: #fbe9e7;
+}

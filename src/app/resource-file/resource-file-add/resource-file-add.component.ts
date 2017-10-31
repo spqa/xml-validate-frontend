@@ -34,6 +34,7 @@ export class ResourceFileAddComponent implements OnInit {
           }
         }
       } else {
+        this.resourceFileService.loadResourceFiles();
         this.infoMessage = result.message;
       }
     });

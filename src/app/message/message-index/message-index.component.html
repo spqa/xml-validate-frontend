@@ -11,7 +11,7 @@
     <button (click)="toggleAddMessage()" class="button">Add Message</button>
     <button (click)="toggleAddResourceFile()" class="button">Add Resource File</button>
     <button (click)="toggleAddCodeFile()" class="button">Add Code File</button>
-    <app-message-add *ngIf="isAddingMessage" [codeFileList]="codeFileList"
+    <app-message-add [hidden]="!isAddingMessage" [codeFileList]="codeFileList"
                      [resourceFileList]="resourceFileList"></app-message-add>
     <app-code-file-add *ngIf="isAddingCodeFile"></app-code-file-add>
     <app-resource-file-add *ngIf="isAddingResourceFile"></app-resource-file-add>
@@ -93,6 +93,11 @@
       <a class="button is-link" (click)="nextPage()"
          [attr.disabled]="messageList.current_page == messageList.last_page?'':null">
         Next
+      </a>
+    </p>
+    <p class="control">
+      <a class="button is-success">
+        {{messageList.total}}
       </a>
     </p>
   </div>
