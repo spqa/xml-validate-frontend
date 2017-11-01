@@ -9,6 +9,7 @@ import {SharedModule} from "./shared/shared.module";
 import {CodefileModule} from "./codefile/codefile.module";
 import {HttpClientModule} from "@angular/common/http";
 import {ResourceFileModule} from "./resource-file/resource-file.module";
+import {DiffXmlModule} from "./diff-xml/diff-xml.module";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {ResourceFileModule} from "./resource-file/resource-file.module";
     MessageModule,
     CodefileModule,
     ResourceFileModule,
+    DiffXmlModule,
     SharedModule,
     AppRoutingModule,
     CoreModule
