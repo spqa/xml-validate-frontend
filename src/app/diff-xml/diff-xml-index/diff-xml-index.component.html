@@ -1,13 +1,25 @@
-<div class="file">
-  <label class="file-label">
-    <input class="file-input" #file (change)="onUpload(file.files)" type="file" name="resume" multiple>
-    <span class="file-cta">
-      <span class="file-icon">
-        <i class="fa fa-upload"></i>
-      </span>
-      <span class="file-label">
-        Choose a file…
-      </span>
-    </span>
-  </label>
-</div>
+<section class="section">
+  <div class="container">
+
+    <h1 class="title">Diff XML</h1>
+    <h2 class="subtitle">Compare XML files data with messages in DB</h2>
+    <hr>
+    <div class="columns">
+      <div class="column">
+        <div class="file">
+          <label class="file-label">
+            <input class="file-input" #file (change)="onUpload(file.files)" type="file" name="resume" multiple>
+            <span class="file-cta">
+              <span class="file-icon">
+              <i class="fa fa-upload"></i>
+              </span>
+              <span class="file-label">
+                Choose a file…
+              </span>
+            </span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

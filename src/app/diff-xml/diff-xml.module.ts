@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {DiffXmlIndexComponent} from './diff-xml-index/diff-xml-index.component';
 import {RouterModule, Routes} from "@angular/router";
+import {DiffXmlFileComponent} from './diff-xml-file/diff-xml-file.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [DiffXmlIndexComponent],
+  declarations: [DiffXmlIndexComponent, DiffXmlFileComponent],
   exports: [RouterModule]
 })
 export class DiffXmlModule {
