@@ -24,8 +24,8 @@
       </tr>
       </thead>
       <tbody *ngIf="resourceFileStream">
-      <tr *ngFor="let resourceFile of resourceFileStream | async">
-        <td>{{resourceFile.id}}</td>
+      <tr *ngFor="let resourceFile of resourceFileStream | async; index as i">
+        <td>{{i+1}}</td>
         <td>{{resourceFile.name}}</td>
         <td>{{resourceFile.created_at}}</td>
         <td>{{resourceFile.updated_at}}</td>

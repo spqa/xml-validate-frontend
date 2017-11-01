@@ -49,7 +49,7 @@ export class MessageRowComponent implements OnInit {
 
   handleChange(event: Event): void {
     const td: any = event.target;
-    const content = td.textContent;
+    const content = td.innerText;
     console.log(content);
     let isChange = false;
     const upMess = new Message();

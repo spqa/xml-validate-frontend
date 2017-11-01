@@ -51,6 +51,13 @@
           </div>
 
           <div class="control">
+            <button [class.is-loading]="isLoading" (click)="handleFilter()" class="button is-info">Apply</button>
+          </div>
+
+        </div>
+
+        <div class="field is-grouped">
+          <div class="control">
             <label class="label label-apply">Applied</label>
             <label class="radio">
               <input type="radio" name="applied" value="1" [(ngModel)]="queryState.applied">
@@ -67,9 +74,16 @@
           </div>
 
           <div class="control">
-            <button [class.is-loading]="isLoading" (click)="handleFilter()" class="button is-info">Apply</button>
+            <label class="label label-apply">Final</label>
+            <label class="radio">
+              <input type="radio" name="final" value="1" [(ngModel)]="queryState.final">
+              Empty
+            </label>
+            <label class="radio">
+              <input type="radio" name="final" value="" [(ngModel)]="queryState.final">
+              None
+            </label>
           </div>
-
         </div>
 
       </div>

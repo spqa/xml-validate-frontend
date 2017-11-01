@@ -39,6 +39,9 @@ export class MessageService {
         if (state.page) {
           params.set("page", state.page.toString());
         }
+        if (state.final) {
+          params.set("final", '1');
+        }
       }
 
       const url = MessageService.EP + "/message?" + params.toString();

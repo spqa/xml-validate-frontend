@@ -4,4 +4,5 @@ export class MessageQueryState {
   public code_file_id: number;
   public per_page: number;
   public page: number;
+  public final: number | string;
 }

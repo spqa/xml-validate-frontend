@@ -29,8 +29,8 @@
       </tr>
       </thead>
       <tbody *ngIf="codeFileStream">
-      <tr *ngFor="let file of codeFileStream | async">
-        <td>{{file.id}}</td>
+      <tr *ngFor="let file of codeFileStream | async; index as i">
+        <td>{{i+1}}</td>
         <td>{{file.name}}</td>
         <td>{{file.package}}</td>
         <td>{{file.created_at}}</td>
