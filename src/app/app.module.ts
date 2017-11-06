@@ -7,9 +7,11 @@ import {MessageModule} from "./message/message.module";
 import {CoreModule} from "./core/core.module";
 import {SharedModule} from "./shared/shared.module";
 import {CodefileModule} from "./codefile/codefile.module";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ResourceFileModule} from "./resource-file/resource-file.module";
 import {DiffXmlModule} from "./diff-xml/diff-xml.module";
+import {AuthInterceptor} from "./shared/interceptor/auth.interceptor";
+import {AuthService} from "./core/auth.service";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,14 @@ import {DiffXmlModule} from "./diff-xml/diff-xml.module";
     AppRoutingModule,
     CoreModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

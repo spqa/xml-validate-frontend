@@ -5,11 +5,14 @@ import {CodeFileAddComponent} from './code-file-add/code-file-add.component';
 import {FormsModule} from "@angular/forms";
 import {CodeFileIndexComponent} from './code-file-index/code-file-index.component';
 import {RouterModule, Routes} from "@angular/router";
+import {AuthService} from "../core/auth.service";
+import {AuthGuard} from "../core/guard/auth.guard";
 
 const routes: Routes = [
   {
     path: 'codefile',
-    component: CodeFileIndexComponent
+    component: CodeFileIndexComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -20,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [CodeFileAddComponent, CodeFileIndexComponent],
-  providers: [CodefileService],
+  providers: [CodefileService, AuthService, AuthGuard],
   exports: [
     CodeFileAddComponent,
     RouterModule
