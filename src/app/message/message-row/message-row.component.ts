@@ -92,7 +92,7 @@ export class MessageRowComponent implements OnInit {
         break;
     }
     if (isChange) {
-      td.style.backgroundColor = "#ef9a9a";
+      td.style.backgroundColor = "#4DB6AC";
       this.messageService.updateMessage(upMess).subscribe(result => {
         console.log(upMess);
         if (result.error === false) {
