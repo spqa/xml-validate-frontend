@@ -7,9 +7,6 @@
 <td class="is-light">{{message.resource_file ? message.resource_file.name : ""}}</td>
 <td contenteditable (input)="viStream.next($event)" [innerHTML]="message.vi | lineBreak"></td>
 <td><input (change)="updateApplied($event)" type="checkbox" [checked]="message.applied"/></td>
-<td class="is-light" >{{message.updated_by}}</td>
-<td class="is-light">{{message.updated_at | date:'shortDate'}}</td>
-<td class="is-light">{{message.created_at | date:'shortDate'}}</td>
 <td>
   <button (click)="deleteMessage()" class="button is-warning">Delete</button>
 </td>

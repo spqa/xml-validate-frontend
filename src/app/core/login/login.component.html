@@ -1,0 +1,25 @@
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-half">
+        <h1 class="title">Login</h1>
+        <div class="field">
+          <label class="label">Email</label>
+          <div class="control">
+            <input class="input" type="text" name="email" [(ngModel)]="user.email" placeholder="email" required>
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Password</label>
+          <div class="control">
+            <input class="input" type="password" name="password" [(ngModel)]="user.password" placeholder="password"
+                   required>
+          </div>
+        </div>
+        <div class="field">
+          <input type="button" class="button" (click)="onSubmit()" value="submit">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

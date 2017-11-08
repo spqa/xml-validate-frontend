@@ -5,11 +5,14 @@ import {ResourceFileAddComponent} from './resource-file-add/resource-file-add.co
 import {FormsModule} from "@angular/forms";
 import {ResourceFileIndexComponent} from './resource-file-index/resource-file-index.component';
 import {RouterModule, Routes} from "@angular/router";
+import {AuthGuard} from "../core/guard/auth.guard";
+import {AuthService} from "../core/auth.service";
 
 const routes: Routes = [
   {
     path: 'resource-file',
-    component: ResourceFileIndexComponent
+    component: ResourceFileIndexComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -20,7 +23,7 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [ResourceFileAddComponent, ResourceFileIndexComponent],
-  providers: [ResourceFileService],
+  providers: [ResourceFileService, AuthGuard, AuthService],
   exports: [
     ResourceFileAddComponent,
     RouterModule

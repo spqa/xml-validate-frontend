@@ -10,12 +10,15 @@ import {CodefileModule} from "../codefile/codefile.module";
 import {FormsModule} from "@angular/forms";
 import {MessageAddComponent} from './message-add/message-add.component';
 import {ResourceFileModule} from "../resource-file/resource-file.module";
+import {AuthGuard} from "../core/guard/auth.guard";
+import {AuthService} from "../core/auth.service";
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: MessageIndexComponent
+    component: MessageIndexComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -33,7 +36,7 @@ const routes: Routes = [
     MessageIndexComponent,
     RouterModule
   ],
-  providers: [MessageService]
+  providers: [MessageService, AuthGuard, AuthService]
 })
 export class MessageModule {
 }
