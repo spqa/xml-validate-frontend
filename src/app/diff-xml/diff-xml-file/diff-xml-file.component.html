@@ -1,3 +1,17 @@
-<p>
-  diff-xml-file works!
-</p>
+<h3 class="title"># {{file.name}}</h3>
+<progress class="progress is-small" [value]="progress" max="100">15%</progress>
+<div class="notification is-danger">
+  <button class="delete"></button>
+  File Not Found
+</div>
+
+<table class="table is-hoverable is-fullwidth">
+  <thead>
+  <th>Message Key</th>
+  <th>{{file.name}}</th>
+  <th>DB</th>
+  </thead>
+  <tbody>
+  <tr></tr>
+  </tbody>
+</table>

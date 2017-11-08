@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs/Observable";
-import {Observer} from "rxjs/Observer";
+import {DiffXmlService} from "../diff-xml.service";
 
 @Component({
   selector: 'app-diff-xml-index',
@@ -9,30 +8,35 @@ import {Observer} from "rxjs/Observer";
 })
 export class DiffXmlIndexComponent implements OnInit {
 
-  constructor() {
+  files: FileList;
+
+  constructor(private diffService: DiffXmlService) {
   }
 
   ngOnInit() {
   }
 
   onUpload(files: FileList) {
-    for (let i = 0; i < files.length; i++) {
-      this.readFile(files[0]).subscribe((result) => {
-        console.log(result);
-      });
-    }
-  }
+    // for (let i = 0; i < files.length; i++) {
+    //   this.diffService.readFile(files[0]).subscribe((result) => {
+    //     let messages: Message[] = [];
+    //     const domParser = new DOMParser();
+    //     const xmlDOC = domParser.parseFromString(result, "text/xml");
+    //     console.log(xmlDOC);
+    //     const entries = xmlDOC.getElementsByTagName("entry");
+    //     console.log(entries);
+    //     for (let j = 0; j < entries.length; j++) {
+    //       let message = new Message();
+    //       message.message_key = entries.item(i).getAttribute("key");
+    //       message.ja = entries[i].innerHTML;
+    //       messages.push(message);
+    //       console.log(message);
+    //     }
+    //     console.log(messages);
+    //   });
+    // }
 
-  readFile(file: File): Observable<any> {
-    const reader = new FileReader();
-    const fileStream = Observable.create((observer: Observer<any>) => {
-      reader.onload = () => {
-        observer.next(reader.result);
-        observer.complete();
-      };
-    });
-    reader.readAsText(file, "utf-8");
-    return fileStream;
+    this.files = files;
   }
 
 }

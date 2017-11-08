@@ -21,5 +21,10 @@
         </div>
       </div>
     </div>
+    <div class="columns">
+      <div class="column" *ngIf="files">
+        <app-diff-xml-file *ngFor="let file of files" [file]="file"></app-diff-xml-file>
+      </div>
+    </div>
   </div>
 </section>

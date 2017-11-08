@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-diff-xml-file',
@@ -7,6 +7,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class DiffXmlFileComponent implements OnInit {
 
+  progress = 0;
+  @Input() file: File;
   constructor() {
   }
 
