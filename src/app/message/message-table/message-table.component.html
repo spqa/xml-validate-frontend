@@ -10,11 +10,11 @@
     <th>Resource File</th>
     <th class="min-width-150">VI</th>
     <th>Applied</th>
+    <th>Tested</th>
     <th>Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr message-row *ngFor="let message of messages; index as i" [message]="message" [no]="i"
-      [class.not-applied]="!message.applied"></tr>
+  <tr message-row *ngFor="let message of messages; index as i" [message]="message" [no]="i"></tr>
   </tbody>
 </table>

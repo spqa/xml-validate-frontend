@@ -16,7 +16,6 @@ import {Config} from "../config/Config";
 @Injectable()
 export class MessageService {
   static EP = Config.EP;
-  static QUERY_STATE = "message-query-state";
   private messageState: MessageQueryState = new MessageQueryState();
   public messagesStream: Subject<MessageList> = new BehaviorSubject(null);
   public queryStateStream: Subject<MessageQueryState> = new BehaviorSubject(null);
@@ -26,6 +25,9 @@ export class MessageService {
       if (state) {
         if (state.applied) {
           params.set("applied", state.applied.toString());
+        }
+        if (state.tested) {
+          params.set("tested", state.tested.toString());
         }
         if (state.code_file_id) {
           params.set("codefile", state.code_file_id.toString());
@@ -71,10 +73,6 @@ export class MessageService {
 
   public setQueryState(state: MessageQueryState) {
     this.messageState = state;
-  }
-
-  public getQueryState(): MessageQueryState {
-    return this.messageState;
   }
 
   public updateMessage(message: Message): Observable<ResultMessage> {

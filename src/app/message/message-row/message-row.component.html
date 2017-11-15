@@ -6,7 +6,12 @@
 <td class="is-light">{{message.code_file ? message.code_file.name : ""}}</td>
 <td class="is-light">{{message.resource_file ? message.resource_file.name : ""}}</td>
 <td contenteditable (input)="viStream.next($event)" [innerHTML]="message.vi | lineBreak"></td>
-<td><input (change)="updateApplied($event)" type="checkbox" [checked]="message.applied"/></td>
+<td [class.not-applied]="!message.applied">
+  <input (change)="updateApplied($event)" type="checkbox" [checked]="message.applied"/>
+</td>
+<td [class.not-tested]="!message.tested">
+  <input (change)="updateTested($event)" type="checkbox" [checked]="message.tested"/>
+</td>
 <td>
   <button (click)="deleteMessage()" class="button is-warning">Delete</button>
 </td>

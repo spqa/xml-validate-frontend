@@ -74,6 +74,22 @@
           </div>
 
           <div class="control">
+            <label class="label label-apply">Tested</label>
+            <label class="radio">
+              <input type="radio" name="tested" value="1" [(ngModel)]="queryState.tested">
+              Yes
+            </label>
+            <label class="radio">
+              <input type="radio" name="tested" value="0" [(ngModel)]="queryState.tested">
+              No
+            </label>
+            <label class="radio">
+              <input type="radio" name="tested" [(ngModel)]="queryState.tested">
+              None
+            </label>
+          </div>
+
+          <div class="control">
             <label class="label label-apply">Final</label>
             <label class="radio">
               <input type="radio" name="final" value="1" [(ngModel)]="queryState.final">

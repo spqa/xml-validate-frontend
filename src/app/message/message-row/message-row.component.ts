@@ -111,6 +111,21 @@ export class MessageRowComponent implements OnInit {
     this.messageService.updateMessage(message).subscribe((result) => {
       if (result.error === false) {
         $event.target.parentElement.style.backgroundColor = null;
+        this.message.applied = !this.message.applied;
+      }
+    });
+  }
+
+  updateTested($event) {
+    console.log("update tested flag!");
+    $event.target.parentElement.style.backgroundColor = "#ef9a9a";
+    const message = new Message();
+    message.id = this.message.id;
+    message.tested = !this.message.tested;
+    this.messageService.updateMessage(message).subscribe((result) => {
+      if (result.error === false) {
+        $event.target.parentElement.style.backgroundColor = null;
+        this.message.tested = !this.message.tested;
       }
     });
   }
