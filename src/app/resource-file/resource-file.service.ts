@@ -6,6 +6,7 @@ import {Config} from "../config/Config";
 import {ResultMessage} from "../shared/models/result-message";
 import {Subject} from "rxjs/Subject";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
+import {Message} from "../shared/models/message";
 
 @Injectable()
 export class ResourceFileService {
@@ -31,5 +32,9 @@ export class ResourceFileService {
 
   updateResourceFile(file: ResourceFile): Observable<ResultMessage> {
     return this.http.patch(Config.EP + "/resourcefile/" + file.id, file);
+  }
+
+  getMessages(resourceFile: ResourceFile): Observable<Message[]> {
+    return this.http.get<Message[]>(Config.EP + "/resourcefile/" + resourceFile.id + "/messages");
   }
 }

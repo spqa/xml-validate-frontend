@@ -21,7 +21,7 @@ export class DiffXmlService {
     return fileStream;
   }
 
-  readFileAsMessages(file: File): Observable<Message[]> {
+  readFileAsMessages(file: File, lang: string): Observable<Message[]> {
     return this.readFileAsString(file).map((str) => {
       const messages: Message[] = [];
       const domParser = new DOMParser();
@@ -32,7 +32,14 @@ export class DiffXmlService {
       for (let j = 0; j < entries.length; j++) {
         const message = new Message();
         message.message_key = entries.item(j).getAttribute("key");
-        message.ja = entries[j].innerHTML;
+        switch (lang) {
+          case "en":
+            message.final = entries[j].innerHTML;
+            break;
+          case "ja":
+            message.ja = entries[j].innerHTML;
+            break;
+        }
         messages.push(message);
         console.log(message);
       }

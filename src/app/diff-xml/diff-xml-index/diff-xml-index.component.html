@@ -22,8 +22,8 @@
       </div>
     </div>
     <div class="columns">
-      <div class="column" *ngIf="files">
-        <app-diff-xml-file *ngFor="let file of files" [file]="file"></app-diff-xml-file>
+      <div class="column" *ngIf="bundles">
+        <app-diff-xml-file *ngFor="let bundle of bundles" [bundle]="bundle"></app-diff-xml-file>
       </div>
     </div>
   </div>

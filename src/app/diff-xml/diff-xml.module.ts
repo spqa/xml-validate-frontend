@@ -4,6 +4,7 @@ import {DiffXmlIndexComponent} from './diff-xml-index/diff-xml-index.component';
 import {RouterModule, Routes} from "@angular/router";
 import {DiffXmlFileComponent} from './diff-xml-file/diff-xml-file.component';
 import {DiffXmlService} from "./diff-xml.service";
+import {ResourceFileService} from "../resource-file/resource-file.service";
 
 const routes: Routes = [
   {
@@ -19,7 +20,7 @@ const routes: Routes = [
   ],
   declarations: [DiffXmlIndexComponent, DiffXmlFileComponent],
   exports: [RouterModule],
-  providers: [DiffXmlService]
+  providers: [DiffXmlService, ResourceFileService]
 })
 export class DiffXmlModule {
 }

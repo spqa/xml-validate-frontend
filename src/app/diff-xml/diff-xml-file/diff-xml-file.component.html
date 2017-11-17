@@ -1,4 +1,4 @@
-<h3 class="title"># {{file.name}}</h3>
+<h3 class="title"># {{bundle.name}}</h3>
 <progress class="progress is-small" [value]="progress" max="100">15%</progress>
 <!--<div class="notification is-danger">-->
 <!--<button class="delete"></button>-->
@@ -8,7 +8,7 @@
   <div class="control">
     <div class="tags has-addons">
       <span class="tag">Test: pair</span>
-      <span class="tag is-success">Yes</span>
+      <span class="tag {{testPair?'is-success':'is-warning'}}">{{testPair?'PASS':'FAIL'}}</span>
     </div>
   </div>
 
@@ -30,10 +30,14 @@
 <table class="table is-hoverable is-fullwidth">
   <thead>
   <th>Message Key</th>
-  <th>{{file.name}}</th>
+  <th>{{bundle.name}}</th>
   <th>DB</th>
   </thead>
   <tbody>
-  <tr></tr>
+  <tr *ngFor="let result of testResult">
+    <td>{{result.messageKey}}</td>
+    <td>{{result.local}}</td>
+    <td>{{result.db}}</td>
+  </tr>
   </tbody>
 </table>

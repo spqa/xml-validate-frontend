@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {DiffXmlService} from "../diff-xml.service";
 import {BundleGroup} from "../../shared/models/bundle-group";
 import * as _ from "lodash";
 
@@ -10,9 +9,9 @@ import * as _ from "lodash";
 })
 export class DiffXmlIndexComponent implements OnInit {
 
-  files: FileList;
   bundles: BundleGroup[];
-  constructor(private diffService: DiffXmlService) {
+
+  constructor() {
   }
 
   ngOnInit() {
@@ -24,14 +23,21 @@ export class DiffXmlIndexComponent implements OnInit {
       if (!_.endsWith(file.name, ".xml")) {
         return currentBundles;
       }
+      // get name of xml bundle by split "_"
       const name = file.name.split("_")[0];
-      const bundle: BundleGroup = _.find(currentBundles, {name: name});
+      let bundle: BundleGroup = _.find(currentBundles, {name: name});
       if (bundle) {
         bundle.files.push(file);
         return currentBundles;
       }
+      bundle = new BundleGroup();
+      bundle.name = name;
+      bundle.files.push(file);
+      currentBundles.push(bundle);
+      return currentBundles;
     }, []);
-    this.files = files;
+
+    console.log(this.bundles);
   }
 
 
