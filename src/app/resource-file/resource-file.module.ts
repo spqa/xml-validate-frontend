@@ -7,6 +7,8 @@ import {ResourceFileIndexComponent} from './resource-file-index/resource-file-in
 import {RouterModule, Routes} from "@angular/router";
 import {AuthGuard} from "../core/guard/auth.guard";
 import {AuthService} from "../core/auth.service";
+import {MessageService} from "../message/message.service";
+import {DiffXmlService} from "../diff-xml/diff-xml.service";
 
 const routes: Routes = [
   {
@@ -23,7 +25,12 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [ResourceFileAddComponent, ResourceFileIndexComponent],
-  providers: [ResourceFileService, AuthGuard, AuthService],
+  providers: [
+    ResourceFileService,
+    AuthGuard,
+    AuthService,
+    MessageService,
+    DiffXmlService],
   exports: [
     ResourceFileAddComponent,
     RouterModule

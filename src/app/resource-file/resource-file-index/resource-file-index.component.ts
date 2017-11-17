@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ResourceFileService} from "../resource-file.service";
 import {Observable} from "rxjs/Observable";
 import {ResourceFile} from "../../shared/models/resource-file";
+import {MessageService} from "../../message/message.service";
+import {DiffXmlService} from "../../diff-xml/diff-xml.service";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-resource-file-index',
@@ -15,7 +18,9 @@ export class ResourceFileIndexComponent implements OnInit {
   isError = false;
   errorMessage = '';
 
-  constructor(private resourceFileService: ResourceFileService) {
+  constructor(private resourceFileService: ResourceFileService,
+              private messageService: MessageService,
+              private diffService: DiffXmlService) {
   }
 
   ngOnInit() {
@@ -37,5 +42,12 @@ export class ResourceFileIndexComponent implements OnInit {
         this.errorMessage = result.message.name[0];
       }
     });
+  }
+
+  importMessage(resourceFile: ResourceFile, fileList: FileList) {
+    const fileArray = Array.from(fileList);
+    if (fileArray.length > 1) {
+      const en$ = this.diffService.readFileAsMessages(_.find(fileArray, {}))
+    }
   }
 }
