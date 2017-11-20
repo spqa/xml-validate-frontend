@@ -8,7 +8,7 @@
   <div class="control">
     <div class="tags has-addons">
       <span class="tag">Test: DB data</span>
-      <span class="tag {{testFound===true?'is-success':'is-warning'}}">{{testFound?'PASS':'FAIL'}}</span>
+      <span class="tag {{testFound?'is-success':'is-warning'}}">{{testFound?'PASS':'FAIL'}}</span>
     </div>
   </div>
 
@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<table class="table is-fullwidth">
+<table class="table is-fullwidth is-bordered">
   <thead>
   <th>Message Key</th>
   <th>{{bundle.name}}</th>

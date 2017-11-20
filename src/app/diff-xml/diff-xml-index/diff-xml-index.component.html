@@ -21,10 +21,8 @@
         </div>
       </div>
     </div>
-    <div class="columns">
-      <div class="column" *ngIf="bundles">
-        <app-diff-xml-file *ngFor="let bundle of bundles" [bundle]="bundle"></app-diff-xml-file>
-      </div>
+    <div *ngIf="bundles">
+      <app-diff-xml-file *ngFor="let bundle of bundles" [bundle]="bundle"></app-diff-xml-file>
     </div>
   </div>
 </section>
