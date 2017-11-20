@@ -1,10 +1,17 @@
 <h3 class="title"># {{bundle.name}}</h3>
-<progress class="progress is-small" [value]="progress" max="100">15%</progress>
+<progress class="progress is-small" [value]="progress" [max]="max"></progress>
 <!--<div class="notification is-danger">-->
 <!--<button class="delete"></button>-->
 <!--File Not Found-->
 <!--</div>-->
 <div id="meta" class="field is-grouped is-grouped-multiline">
+  <div class="control">
+    <div class="tags has-addons">
+      <span class="tag">Test: DB data</span>
+      <span class="tag {{testFound===true?'is-success':'is-warning'}}">{{testFound?'PASS':'FAIL'}}</span>
+    </div>
+  </div>
+
   <div class="control">
     <div class="tags has-addons">
       <span class="tag">Test: pair</span>
@@ -15,27 +22,27 @@
   <div class="control">
     <div class="tags has-addons">
       <span class="tag">Test: same message keys</span>
-      <span class="tag is-success">Yes</span>
+      <span class="tag {{testSame?'is-success':'is-warning'}}">{{testSame?'PASS':'FAIL'}}</span>
     </div>
   </div>
 
   <div class="control">
     <div class="tags has-addons">
-      <span class="tag">Total messages</span>
-      <span class="tag is-info">Yes</span>
+      <span class="tag">Total messages fail</span>
+      <span class="tag is-info">{{this.testResult.length}}</span>
     </div>
   </div>
 </div>
 
-<table class="table is-hoverable is-fullwidth">
+<table class="table is-fullwidth">
   <thead>
   <th>Message Key</th>
   <th>{{bundle.name}}</th>
   <th>DB</th>
   </thead>
   <tbody>
-  <tr *ngFor="let result of testResult">
-    <td>{{result.messageKey}}</td>
+  <tr *ngFor="let result of testResult" class="{{result.status}}">
+    <td>{{result.message_key}}</td>
     <td>{{result.local}}</td>
     <td>{{result.db}}</td>
   </tr>

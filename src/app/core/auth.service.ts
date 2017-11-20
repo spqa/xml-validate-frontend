@@ -11,7 +11,7 @@ export class AuthService {
   }
 
   login(user: User): Observable<string> {
-    return this.http.post(Config.EP + "/authenticate", user);
+    return this.http.post<string>(Config.EP + "/authenticate", user);
   }
 
   checkLogin(): boolean {

@@ -57,6 +57,10 @@ export class MessageService {
     });
   }
 
+  public importMessages(messages: Message[]): Observable<ResultMessage> {
+    return this.http.post<ResultMessage>(Config.EP + "/message/import", messages);
+  }
+
   public getMessages(): void {
     this.queryStateStream.next(this.messageState);
   }
@@ -77,21 +81,21 @@ export class MessageService {
 
   public updateMessage(message: Message): Observable<ResultMessage> {
     const url = MessageService.EP + "/message/" + message.id;
-    return this.http.patch(url, message);
+    return this.http.patch<ResultMessage>(url, message);
   }
 
   public addMessage(message: Message): Observable<ResultMessage> {
     const url = MessageService.EP + "/message";
-    return this.http.post(url, message);
+    return this.http.post<ResultMessage>(url, message);
   }
 
   public searchMessage(query: string): Observable<MessageList> {
     const url = MessageService.EP + "/search/message?query=" + query;
-    return this.http.get(url);
+    return this.http.get<MessageList>(url);
   }
 
   public deleteMessage(id: number): Observable<ResultMessage> {
     const url = MessageService.EP + "/message/" + id;
-    return this.http.delete(url);
+    return this.http.delete<ResultMessage>(url);
   }
 }

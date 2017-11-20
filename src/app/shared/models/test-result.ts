@@ -1,12 +1,12 @@
 export class TestResult {
-  messageKey: string;
+  message_key: string;
   local: string;
   db: string;
   status: ResultStatus;
 }
 
 export enum ResultStatus {
-  CONFLICT,
-  LOCAL,
-  DB
+  CONFLICT = "is-conflict",
+  LOCAL = "is-local",
+  DB = "is-db",
 }

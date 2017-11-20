@@ -7,6 +7,7 @@ import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/zip';
 import {Message} from "../../shared/models/message";
 import {ResultStatus, TestResult} from "../../shared/models/test-result";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-diff-xml-file',
@@ -19,7 +20,8 @@ export class DiffXmlFileComponent implements OnInit {
   max = 100;
   @Input() bundle: BundleGroup;
   testPair = false;
-  testSame = false;
+  testFound = false;
+  testSame = true;
   testResult: TestResult[] = [];
 
   constructor(private diffService: DiffXmlService,
@@ -41,8 +43,10 @@ export class DiffXmlFileComponent implements OnInit {
       .filter(res => !!res)
       .map((resFiles) => {
         const foundFiles = resFiles.filter((resFile) => `${this.bundle.name}.xml` === resFile.name);
-        if (foundFiles) return foundFiles[0];
-        return null;
+        if (foundFiles.length > 0) {
+          this.testFound = true;
+          return foundFiles[0];
+        }
       })
       .switchMap((resFile: ResourceFile) => this.resourceService.getMessages(resFile));
 
@@ -51,32 +55,75 @@ export class DiffXmlFileComponent implements OnInit {
         const en = val.en;
         const ja = val.ja;
         const db = val.db;
+
+        console.log("diffXMLFile#test: ", en);
+        console.log("diffXMLFile#test: ", db);
+
         this.max = en.length;
+
+        // test same message
+        for (const message of en) {
+          if (!_.find(ja, {message_key: message.message_key})) {
+            this.testSame = false;
+            break;
+          }
+        }
+
         this.testResult = en.reduce((currentResult: TestResult[], message) => {
           let result: TestResult;
+          let same = false;
           db.forEach((dbMessage) => {
-            if (message.message_key === dbMessage.message_key && message.final !== this.getDefaultEN(dbMessage)) {
+            if (message.message_key === dbMessage.message_key) {
+              if (message.final === this.getDefaultEN(dbMessage)) {
+                same = true;
+                return;
+              }
+              console.log(message.final);
               result = new TestResult();
-              result.messageKey = message.message_key;
-              result.db = dbMessage.en;
-              result.local = message.en;
+              result.message_key = message.message_key;
+              result.db = this.getDefaultEN(dbMessage);
+              result.local = message.final;
               result.status = ResultStatus.CONFLICT;
               currentResult.push(result);
             }
           });
           // exit foreach local message not exist in db
-          if (!result) {
+          if (!result && !same) {
             result = new TestResult();
             result.status = ResultStatus.LOCAL;
             result.local = message.final;
+            result.message_key = message.final;
+            currentResult.push(result);
           }
+
+          this.progress++;
           return currentResult;
-        }, []);
-      });
+        }, this.testResult);
+
+        this.testResult = db.reduce((currentResult: TestResult[], dbMessage) => {
+          for (const localMessage of en) {
+            if (dbMessage.message_key === localMessage.message_key) {
+              return currentResult;
+            }
+          }
+          const result = new TestResult();
+          result.message_key = dbMessage.message_key;
+          result.db = this.getDefaultEN(dbMessage);
+          result.status = ResultStatus.DB;
+          currentResult.push(result);
+          return currentResult;
+        }, this.testResult);
+
+      }, this.handleError);
   }
 
   getDefaultEN(message: Message): string {
     return message.final || message.en;
+  }
+
+  handleError(error) {
+    this.testFound = this.testPair = this.testSame = false;
+    console.log(error);
   }
 
   ngOnInit() {

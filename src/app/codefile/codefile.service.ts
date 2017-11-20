@@ -28,10 +28,10 @@ export class CodefileService {
   }
 
   addCodeFile(codeFile: CodeFile): Observable<ResultMessage> {
-    return this.http.post(this.EP + "/codefile", codeFile);
+    return this.http.post<ResultMessage>(this.EP + "/codefile", codeFile);
   }
 
   updateCodeFile(editCodeFile: CodeFile): Observable<ResultMessage> {
-    return this.http.patch(this.EP + "/codefile/" + editCodeFile.id, editCodeFile);
+    return this.http.patch<ResultMessage>(this.EP + "/codefile/" + editCodeFile.id, editCodeFile);
   }
 }

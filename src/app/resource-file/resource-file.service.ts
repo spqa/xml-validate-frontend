@@ -7,6 +7,7 @@ import {ResultMessage} from "../shared/models/result-message";
 import {Subject} from "rxjs/Subject";
 import {BehaviorSubject} from "rxjs/BehaviorSubject";
 import {Message} from "../shared/models/message";
+import 'rxjs/add/observable/throw';
 
 @Injectable()
 export class ResourceFileService {
@@ -27,14 +28,18 @@ export class ResourceFileService {
   }
 
   addResourceFile(resourcefile: ResourceFile): Observable<ResultMessage> {
-    return this.http.post(Config.EP + "/resourcefile", resourcefile);
+    return this.http.post<ResultMessage>(Config.EP + "/resourcefile", resourcefile);
   }
 
   updateResourceFile(file: ResourceFile): Observable<ResultMessage> {
-    return this.http.patch(Config.EP + "/resourcefile/" + file.id, file);
+    return this.http.patch<ResultMessage>(Config.EP + "/resourcefile/" + file.id, file);
   }
 
   getMessages(resourceFile: ResourceFile): Observable<Message[]> {
-    return this.http.get<Message[]>(Config.EP + "/resourcefile/" + resourceFile.id + "/messages");
+    if (resourceFile) {
+      return this.http.get<Message[]>(Config.EP + "/resourcefile/" + resourceFile.id + "/messages");
+    } else {
+      return Observable.throw("Resource File not found!");
+    }
   }
 }
