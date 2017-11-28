@@ -19,6 +19,7 @@ export class ResourceFileIndexComponent implements OnInit {
   editResourceFile: ResourceFile;
   isError = false;
   errorMessage = '';
+  exportResult = '';
 
   constructor(private resourceFileService: ResourceFileService,
               private messageService: MessageService,
@@ -93,5 +94,28 @@ export class ResourceFileIndexComponent implements OnInit {
 
     this.isError = true;
     this.errorMessage = "Please select 2 files only!";
+  }
+
+  async exportResourceFile(resourceFile: ResourceFile) {
+    const domParser = new DOMParser();
+    const xmlDoc = domParser.parseFromString("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>\n" +
+      "<!DOCTYPE properties SYSTEM \"http://java.sun.com/dtd/properties.dtd\">\n" +
+      "<properties>\n" +
+      "<comment/></properties>", "text/xml");
+    const propertiesTag = xmlDoc.getElementsByTagName("properties")[0];
+    const messages = await this.resourceFileService.getMessages(resourceFile).toPromise();
+    for (const message of messages) {
+      const entry = xmlDoc.createElement("entry");
+      entry.setAttribute("key", message.message_key);
+      entry.textContent = message.final || message.en;
+      propertiesTag.appendChild(entry);
+    }
+    this.exportResult = new XMLSerializer().serializeToString(xmlDoc);
+    const splited = this.exportResult.split("><");
+    // for (let item of splited) {
+    //   item += "\n";
+    // }
+    this.exportResult = splited.join(">\n<");
+    console.log(xmlDoc);
   }
 }

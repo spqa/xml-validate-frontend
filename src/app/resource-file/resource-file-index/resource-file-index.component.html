@@ -48,12 +48,16 @@
               </label>
             </div>
 
-            <button (click)="showEditForm(resourceFile)" class="button">Export</button>
+            <button (click)="exportResourceFile(resourceFile)" class="button">Export</button>
           </div>
 
         </td>
       </tr>
       </tbody>
     </table>
+  </div>
+
+  <div *ngIf="exportResult" class="container">
+    <pre>{{exportResult}}</pre>
   </div>
 </section>
