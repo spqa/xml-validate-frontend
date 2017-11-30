@@ -44,6 +44,9 @@ export class MessageService {
         if (state.final) {
           params.set("final", '1');
         }
+        if (state.customer_support) {
+          params.set("customer_support", '1');
+        }
       }
 
       const url = MessageService.EP + "/message?" + params.toString();

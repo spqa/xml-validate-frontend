@@ -130,6 +130,19 @@ export class MessageRowComponent implements OnInit {
     });
   }
 
+  updateCustomerSupport($event) {
+    $event.target.parentElement.style.backgroundColor = "#ef9a9a";
+    const message = new Message();
+    message.id = this.message.id;
+    message.customer_support = !this.message.customer_support;
+    this.messageService.updateMessage(message).subscribe((result) => {
+      if (result.error === false) {
+        $event.target.parentElement.style.backgroundColor = null;
+        this.message.customer_support = !this.message.customer_support;
+      }
+    });
+  }
+
   deleteMessage() {
     this.messageService.deleteMessage(this.message.id).subscribe(result => {
       this.messageService.getMessages();

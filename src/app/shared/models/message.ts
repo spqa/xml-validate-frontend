@@ -14,6 +14,7 @@ export class Message {
   resource_file_id: number;
   code_file: CodeFile;
   resource_file: ResourceFile;
+  customer_support: boolean;
   updated_by: string;
   updated_at: string;
   created_at: string;

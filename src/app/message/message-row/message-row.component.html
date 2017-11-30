@@ -12,6 +12,9 @@
 <td [class.not-tested]="!message.tested">
   <input (change)="updateTested($event)" type="checkbox" [checked]="message.tested"/>
 </td>
+<td [class.need-customer-support]="message.customer_support">
+  <input (change)="updateCustomerSupport($event)" type="checkbox" [checked]="message.customer_support">
+</td>
 <td>
   <button (click)="deleteMessage()" class="button is-warning">Delete</button>
 </td>
