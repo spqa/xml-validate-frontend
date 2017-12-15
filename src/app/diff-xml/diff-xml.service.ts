@@ -41,9 +41,9 @@ export class DiffXmlService {
             break;
         }
         messages.push(message);
-        console.log(message);
+        // console.log(message);
       }
-      console.log(messages);
+      // console.log(messages);
       return messages;
     });
   }

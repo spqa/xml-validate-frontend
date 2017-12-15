@@ -7,6 +7,7 @@ import {DiffXmlService} from "../../diff-xml/diff-xml.service";
 import * as _ from 'lodash';
 import {Message} from "../../shared/models/message";
 import 'rxjs/add/operator/combineLatest';
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-resource-file-index',
@@ -18,12 +19,13 @@ export class ResourceFileIndexComponent implements OnInit {
   resourceFileStream: Observable<ResourceFile[]>;
   editResourceFile: ResourceFile;
   isError = false;
-  errorMessage = '';
+  errorMessage: any;
   exportResult = '';
 
   constructor(private resourceFileService: ResourceFileService,
               private messageService: MessageService,
-              private diffService: DiffXmlService) {
+              private diffService: DiffXmlService,
+              private sanitizer: DomSanitizer) {
   }
 
   ngOnInit() {
@@ -76,6 +78,10 @@ export class ResourceFileIndexComponent implements OnInit {
         if (diffMess.length > 0) {
           this.isError = true;
           this.errorMessage = "2 resource files do not have the same messages, please check again!";
+          for (const message of diffMess) {
+            this.errorMessage += "<br>" + message.message_key;
+          }
+          this.errorMessage = this.sanitizer.bypassSecurityTrustHtml(this.errorMessage);
         } else {
           const messages = en.reduce((currentMessages: Message[], message) => {
             message.en = message.final;
