@@ -19,7 +19,7 @@ export class MessageRowComponent implements OnInit {
   JA_KEY = 2;
   EN_KEY = 3;
   FINAL_KEY = 4;
-  VI_KEY = 7;
+  VI_KEY = 6;
   msKeyStream: Subject<Event> = new Subject();
   jaStream: Subject<Event> = new Subject();
   enStream: Subject<Event> = new Subject();
@@ -48,9 +48,9 @@ export class MessageRowComponent implements OnInit {
   }
 
   handleChange(event: Event): void {
-    const td: any = event.target;
-    const content = td.innerText;
-    console.log(content);
+    const txtArea: any = event.target;
+    const td: any = txtArea.parentNode;
+    const content = txtArea.value;
     let isChange = false;
     const upMess = new Message();
     console.log(td.cellIndex);
@@ -92,11 +92,11 @@ export class MessageRowComponent implements OnInit {
         break;
     }
     if (isChange) {
-      td.style.backgroundColor = "#4DB6AC";
+      txtArea.style.backgroundColor = "#4DB6AC";
       this.messageService.updateMessage(upMess).subscribe(result => {
         console.log(upMess);
         if (result.error === false) {
-          td.style.backgroundColor = null;
+          txtArea.style.backgroundColor = null;
         }
       });
     }

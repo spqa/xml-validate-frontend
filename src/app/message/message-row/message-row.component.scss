@@ -10,6 +10,33 @@
   background-color: #880e4f;
 }
 
-td:nth-child(4) {
-  max-width: 500px;
+td:nth-child(3) {
+  min-width: 200px;
+}
+
+td:nth-child(2) {
+  min-width: 200px;
+  max-width: 300px;
+  word-break: break-all;
+}
+
+.editable {
+  position: relative;
+  padding: 0;
+  height: 5rem;
+  min-width: 250px;
+}
+
+.editable textarea {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  resize: none;
+  border: none;
+  width: 100%;
+  font-size: 1rem;
+}
+
+td.is-light {
+  border-color: #dbdbdb;
 }
