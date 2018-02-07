@@ -69,6 +69,13 @@ export class DiffXmlFileComponent implements OnInit {
           }
         }
 
+        for (const message of ja) {
+          if (!_.find(en, {message_key: message.message_key})) {
+            this.testSame = false;
+            break;
+          }
+        }
+
         this.testResult = en.reduce((currentResult: TestResult[], message) => {
           let result: TestResult;
           let same = false;

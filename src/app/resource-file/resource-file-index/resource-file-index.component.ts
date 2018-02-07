@@ -105,7 +105,7 @@ export class ResourceFileIndexComponent implements OnInit {
       }
 
       // Test same messageKey
-      const diffMess = _.differenceBy(en, ja, 'message_key');
+      const diffMess = _.differenceBy(ja, en, 'message_key').concat(_.differenceBy(en, ja, 'message_key'));
       if (diffMess.length > 0) {
         this.isError = true;
         this.errorMessage = "2 resource files do not have the same messages, please check again!";
