@@ -34,6 +34,25 @@ export class ResourceFileIndexComponent implements OnInit {
       || files[0].name.split(/[._]/)[0] !== resourceFile.name.split(".")[0];
   }
 
+  static unescape(s) {
+    const re = /&(?:amp|#38|lt|#60|gt|#62|apos|#39|quot|#34);/g;
+    const unescaped = {
+      '&amp;': '&',
+      '&#38;': '&',
+      '&lt;': '<',
+      '&#60;': '<',
+      '&gt;': '>',
+      '&#62;': '>',
+      '&apos;': "'",
+      '&#39;': "'",
+      '&quot;': '"',
+      '&#34;': '"'
+    };
+    return s.replace(re, function (m) {
+      return unescaped[m];
+    });
+  }
+
   ngOnInit() {
     this.resourceFileStream = this.resourceFileService.getResourceFile();
   }
@@ -159,6 +178,9 @@ export class ResourceFileIndexComponent implements OnInit {
       propertiesTag.appendChild(entry);
     }
     this.exportResult = new XMLSerializer().serializeToString(xmlDoc).split("><").join(">\n<");
+
+    this.exportResult = ResourceFileIndexComponent.unescape(this.exportResult);
+
     const blob = new Blob([this.exportResult], {type: "text/xml;charset=utf-8"});
     saveAs(blob, resourceFile.name);
     console.log(xmlDoc);
